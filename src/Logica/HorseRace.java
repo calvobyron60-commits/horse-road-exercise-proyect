@@ -13,14 +13,17 @@ import javax.swing.JLabel;
  * @author byron
  * Main Horse road class here the whole horses behavior is managed
  */
-public class RoadsHorse extends Thread implements RunnerHorse {
+public class HorseRace extends Thread implements RunnerHorse {
 
     private Horse localHorse;
     private Horse rivalHorse;
+    private Horse thirdHorse;
     private WinComparator comparator;
     private HorseSkill skill;
     private int speed;
     private int recorrido = 0;
+    private int recorridos[] = new int[3];
+    int speeds[] = new int[3];
     private int meta = 120;
     private Random ran = new Random();
     private int rivalRecorrido = 0;
@@ -31,9 +34,9 @@ public class RoadsHorse extends Thread implements RunnerHorse {
              '/ )\\ ).__. ) 
              ' <' `\\ ._/'\\
                 `   \\     \\
-        """;
+        """ + localHorse.getHorseName();
 
-    public RoadsHorse() {
+    public HorseRace() {
         
     }
 
@@ -41,6 +44,15 @@ public class RoadsHorse extends Thread implements RunnerHorse {
     public void readSpeed() {
 
         speed = ran.nextInt(1, 8);
+        
+        speeds[0] = ran.nextInt(1, 8);
+        speeds[1] = ran.nextInt(1, 8);
+        speeds[2] = ran.nextInt(1, 8);
+        
+        recorridos[0] += speeds[0];
+        recorridos[1] += speeds[1];
+        recorridos[2] += speeds[2];
+        
         recorrido += speed;
     }
 

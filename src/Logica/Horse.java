@@ -18,6 +18,8 @@ public class Horse {
         this.recorrido = recorrido;
         this.horse = horse;
     }
+    public Horse(){
+    }
 
     public void setHorseName(String name) {
         this.horseName = name;
@@ -26,5 +28,15 @@ public class Horse {
     public String getHorseName() {
         return horseName;
     }
+
+    public void setRecorrido(int recorrido) {
+        this.recorrido = recorrido;
+    }
+
+    public int getRecorrido() {
+        return recorrido;
+    }
+    
+    
 
 }
