@@ -12,11 +12,23 @@ public class HorseSkill {
 
 
     private int recorrido;
-    private String horse;
+    private String name;
+    private String horse = """
+                         .``
+               ._.-.___.' (`\\
+              //(        ( `'
+             '/ )\\ ).__. ) 
+             ' <' `\\ ._/'\\
+                `   \\     \\
+        """ + name;
 
     public HorseSkill( int recorrido, String horse) {
         this.recorrido = recorrido;
         this.horse = horse;
+    }
+    
+    public HorseSkill(){
+        
     }
     /**
      * Makes the spaces for create horses movement 
@@ -37,5 +49,11 @@ public class HorseSkill {
 
         return resultado;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 
 }

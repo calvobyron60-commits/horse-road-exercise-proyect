@@ -10,7 +10,7 @@ import javax.swing.JLabel;
  *
  * @author byron
  */
-public interface RunnerHorse {
+public interface RunnerHorseImpl {
     
     void readSpeed();
     void startRoad(JLabel horseShower) throws InterruptedException;

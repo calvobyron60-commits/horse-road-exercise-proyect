@@ -5,11 +5,12 @@
 package GUI;
 
 import Exception.NotValidNameSeted;
-import Logica.Horse;
 import Logica.HorseRace;
-import Logica.HorseSkill;
+import Logica.RaceStatus;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import javax.swing.JOptionPane;
+import Logica.RuningHorse;
 
 /**
  *
@@ -18,15 +19,16 @@ import javax.swing.JOptionPane;
 public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMainHorseRace.class.getName());
-    private Horse iaHorseOne;
-    private Horse iaHorseTwo;
-    private Horse myHorse;
-    private HorseRace race;
+    private HorseRace myRace;
+    private HorseRace raceOne;
+    private HorseRace raceTwo;
     private Random r = new Random();
     private final String names[] = {"Juan", "Pedro", "Daniel vibe Coder", "Tiro al Blanco", "Morph"};
-    
-    
-    
+    private RaceStatus raceStatus;
+    private CountDownLatch sameStart;
+    private CountDownLatch latch;
+    private RuningHorse runner[];
+
     /**
      * Creates new form FrmMainHorseRace
      */
@@ -187,34 +189,74 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private void bntStartRaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartRaceActionPerformed
         // TODO add your handling code here:
-        declare();
-        System.out.println("We are here : " + iaHorseOne.getHorseName() + " and " + iaHorseTwo.getHorseName());
-
+        Race();
+        System.out.println("successfully");
 
     }//GEN-LAST:event_bntStartRaceActionPerformed
 
     private void declare() {
-        String hnames[] = generateHorseNames();
-        iaHorseOne = new Horse();
-        iaHorseTwo = new Horse();
-        iaHorseOne.setHorseName(hnames[0]);
-        iaHorseTwo.setHorseName(hnames[1]);
-
-        getClientHorseName();
-
-        race = new HorseRace(myHorse, iaHorseOne, iaHorseTwo);
+        raceStatus = new RaceStatus();
+        sameStart = new CountDownLatch(1);
+        latch = new CountDownLatch(raceStatus.PLAYERS_QUANT);
 
     }
 
-    private void getClientHorseName() {
+    private void Race() {
+        declare();
+        //getClientHorseName();
 
+        if (getClientHorseName()) {
+            String names[] = generateHorseNames();
+            runner = new RuningHorse[raceStatus.PLAYERS_QUANT];
+            //labelInsert();
+            for (int i = 0; i < RaceStatus.PLAYERS_QUANT; i++) {
+                if (i == 0) {
+                    runner[i] = new RuningHorse(txtHorseName.getText().trim(),
+                            raceStatus,
+                            sameStart,
+                            latch
+                    );
+                    labelInsert(i);
+                    runner[i].start();
+                    continue;
+                }
+                runner[i] = new RuningHorse(names[i - 1],
+                        raceStatus,
+                        sameStart,
+                        latch
+                );
+                labelInsert(i);
+                runner[i].start();
+            }
+        }
+
+    }
+
+    private void labelInsert(int i) {
+
+        switch (i) {
+            case 0 -> {
+                runner[i].setHorseShower(lblYerHorse);
+            }
+            case 1 -> {
+                runner[i].setHorseShower(lblHorseTwo);
+            }
+            case 2 -> {
+                runner[i].setHorseShower(lblThirdHorse);
+            }
+
+        }
+
+    }
+
+    private boolean getClientHorseName() {
+        boolean c = false;
         try {
-            if (!(txtHorseName.getText().equals("Set yer horse name here")
-                    || txtHorseName.getText().isBlank())) {
+            if (txtHorseName.getText().trim().equals("Set yer horse name here")
+                    || txtHorseName.getText().isBlank()) {
                 throw new NotValidNameSeted("Debe ingresar un nombre");
             }
-            myHorse = new Horse();
-            myHorse.setHorseName(txtHorseName.getText().trim());
+            c = true;
         } catch (NotValidNameSeted e) {
             JOptionPane.showConfirmDialog(this,
                     "Error:" + e.getMessage(),
@@ -223,21 +265,22 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
             );
         }
 
+        return c;
+
     }
 
 //generate random names for contrincant horses 
-
     private String[] generateHorseNames() {
         String horseNames[] = new String[2];
         for (int i = 0; i < 2; i++) {
             int random = r.nextInt(0, 5);
             horseNames[i] = names[random];
         }
-        
-        if (horseNames[0] != horseNames[1]){
+
+        if (horseNames[0] != horseNames[1]) {
             return horseNames;
         }
-        
+
         return generateHorseNames();
 
     }

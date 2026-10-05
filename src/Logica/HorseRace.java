@@ -4,27 +4,29 @@
  */
 package Logica;
 
-import Implements.RunnerHorse;
 import java.util.Random;
 import javax.swing.JLabel;
+import Implements.RunnerHorseImpl;
 
 /**
  *
  * @author byron
  * Main Horse road class here the whole horses behavior is managed
  */
-public class HorseRace extends Thread implements RunnerHorse {
+public class HorseRace extends Thread implements RunnerHorseImpl {
 
     //Horses declaration
     private Horse localHorse;
     private Horse rivalHorse;
     private Horse thirdHorse;
+    private Horse theHorse;//X
     //Comparator declaration
     private WinComparator comparator;
     //skills declaration 
     private HorseSkill skill;
     private HorseSkill skillRival;
     private HorseSkill skillRivalTwo;
+    private HorseSkill theSkill;
     //Recorridos y velocidades de cada caballo
     private int recorridos[] = {0, 0, 0};
     int speeds[] = new int[3];
@@ -50,8 +52,7 @@ public class HorseRace extends Thread implements RunnerHorse {
         this.localHorse = localHorse;
         this.rivalHorse = rivalHorse;
         this.thirdHorse = thirdHorse;
-    }
-    
+    } 
 
     @Override
     public void readSpeed() {
@@ -95,9 +96,10 @@ public class HorseRace extends Thread implements RunnerHorse {
         skill = new HorseSkill(recorridos[0], horse);//skill
         skillRival = new HorseSkill(recorridos[1], horse);
         skillRivalTwo = new HorseSkill(recorridos[2], horse);
+        //theSkill = new HorseSkill(recorrido, horse);
         
         //Horses
-        
+
         localHorse = new Horse( recorridos[0], horse);
         rivalHorse = new Horse(recorridos[1], horse);
         thirdHorse = new Horse(recorridos[2], horse);
