@@ -8,7 +8,7 @@ package Logica;
  *
  * @author byron
  */
-public class HorseSkill {
+public class Horse {
 
 
     private int recorrido = 0;
@@ -20,7 +20,7 @@ public class HorseSkill {
 //        this.horse = horse;
 //    }
     
-    public HorseSkill(){
+    public Horse(){
         
     }
     /**

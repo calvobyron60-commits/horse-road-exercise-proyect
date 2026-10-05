@@ -22,8 +22,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
     private RaceStatus raceStatus;
     private final CountDownLatch SameStart;
     private final CountDownLatch endRace;
-    private WinComparator comparator;
-    private HorseSkill skill;
+    private Horse skill;
     private JLabel horseShower;
 
     public RuningHorse(String horseName,
@@ -34,7 +33,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
         this.raceStatus = raceStatus;
         this.SameStart = SameStart;
         this.endRace = endRace;
-        skill = new HorseSkill();
+        skill = new Horse();
     }
 
     public int getRecorrido() {
