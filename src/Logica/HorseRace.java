@@ -15,18 +15,24 @@ import javax.swing.JLabel;
  */
 public class HorseRace extends Thread implements RunnerHorse {
 
+    //Horses declaration
     private Horse localHorse;
     private Horse rivalHorse;
     private Horse thirdHorse;
+    //Comparator declaration
     private WinComparator comparator;
+    //skills declaration 
     private HorseSkill skill;
-    private int speed;
-    private int recorrido = 0;
-    private int recorridos[] = new int[3];
+    private HorseSkill skillRival;
+    private HorseSkill skillRivalTwo;
+    //Recorridos y velocidades de cada caballo
+    private int recorridos[] = {0, 0, 0};
     int speeds[] = new int[3];
+    //Distancia de la meta
     private int meta = 120;
     private Random ran = new Random();
-    private int rivalRecorrido = 0;
+    
+    //private String horses[];
     private String horse = """
                          .``
                ._.-.___.' (`\\
@@ -43,7 +49,7 @@ public class HorseRace extends Thread implements RunnerHorse {
     @Override
     public void readSpeed() {
 
-        speed = ran.nextInt(1, 8);
+        //speed = ran.nextInt(1, 8);
         
         speeds[0] = ran.nextInt(1, 8);
         speeds[1] = ran.nextInt(1, 8);
@@ -53,7 +59,7 @@ public class HorseRace extends Thread implements RunnerHorse {
         recorridos[1] += speeds[1];
         recorridos[2] += speeds[2];
         
-        recorrido += speed;
+        //recorrido += speed;
     }
 
 
@@ -61,7 +67,10 @@ public class HorseRace extends Thread implements RunnerHorse {
     @Override
     public void startRoad(JLabel horseShower) throws InterruptedException{
         instanceClasses();
-        while (meta > recorrido) {
+        while ( meta > recorridos[0] &&
+                meta > recorridos[1] &&
+                meta > recorridos[2]){
+            
             readSpeed();
 
             if (comparator.winStatus()){
@@ -74,19 +83,21 @@ public class HorseRace extends Thread implements RunnerHorse {
     }
     
     private void instanceClasses(){
+        //Comparation
+        comparator = new WinComparator(recorridos[2], meta, recorridos[0], recorridos[3]);
         
-        comparator = new WinComparator(rivalRecorrido, meta, recorrido);
-        skill = new HorseSkill(recorrido, horse);
-        localHorse = new Horse( recorrido, horse);
-        rivalHorse = new Horse(rivalRecorrido, horse);
+        //Skills
+        
+        skill = new HorseSkill(recorridos[0], horse);//skill
+        skillRival = new HorseSkill(recorridos[1], horse);
+        skillRivalTwo = new HorseSkill(recorridos[2], horse);
+        
+        //Horses
+        
+        localHorse = new Horse( recorridos[0], horse);
+        rivalHorse = new Horse(recorridos[1], horse);
+        thirdHorse = new Horse(recorridos[2], horse);
         
     }
-    
-
-    
-    private void getRivalPos(int pos){
-        rivalRecorrido = pos;
-    }
-
 
 }
