@@ -11,5 +11,5 @@ import javax.swing.JLabel;
  * @author byron
  */
 public interface RacerHorseImpl {
-    void startRace(JLabel horseShower);
+    void startRace();
 }

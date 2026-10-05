@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class RaceStatus {
 
-    public static final int META = 120;
+    public static final int META = 119;
     public static final int PLAYERS_QUANT = 3;
     // Control atómico: el primer hilo en cambiarlo de false a true es el ganador
     private final AtomicBoolean winnerStatus = new AtomicBoolean(false);

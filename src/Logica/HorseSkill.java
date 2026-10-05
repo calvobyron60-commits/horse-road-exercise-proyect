@@ -11,21 +11,14 @@ package Logica;
 public class HorseSkill {
 
 
-    private int recorrido;
-    private String name;
-    private String horse = """
-                         .``
-               ._.-.___.' (`\\
-              //(        ( `'
-             '/ )\\ ).__. ) 
-             ' <' `\\ ._/'\\
-                `   \\     \\
-        """ + name;
+    private int recorrido = 0;
+    private String name = "";
+    
 
-    public HorseSkill( int recorrido, String horse) {
-        this.recorrido = recorrido;
-        this.horse = horse;
-    }
+//    public HorseSkill( int recorrido, String horse) {
+//        this.recorrido = recorrido;
+//        this.horse = horse;
+//    }
     
     public HorseSkill(){
         
@@ -36,6 +29,16 @@ public class HorseSkill {
      */
     
     public String moveHorse() {
+        
+        String horse = """
+                         .``
+               ._.-.___.' (`\\
+              //(        ( `'
+             '/ )\\ ).__. ) 
+             ' <' `\\ ._/'\\
+                `   \\     \\
+        """ + name;
+        
 
         String espacios = " ".repeat(recorrido);
 
@@ -52,6 +55,10 @@ public class HorseSkill {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setRecorrido(int recorrido) {
+        this.recorrido = recorrido;
     }
     
     

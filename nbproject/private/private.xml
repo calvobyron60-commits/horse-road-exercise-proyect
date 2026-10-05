@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Test/Main.java</file>
-            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/RoadsHorse.java</file>
-            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/WinComparator.java</file>
+            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/GUI/FrmMainHorseRace.java</file>
+            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/RuningHorse.java</file>
+            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Implements/RacerHorseImpl.java</file>
             <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/HorseSkill.java</file>
-            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/Horse.java</file>
-            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Implements/RunnerHorse.java</file>
+            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Logica/RaceStatus.java</file>
+            <file>file:/C:/Users/byron/OneDrive/Documentos/UTN/III_Cuatri/Programacion/Lab_II/HorseRoad/src/Test/Main.java</file>
         </group>
     </open-files>
 </project-private>

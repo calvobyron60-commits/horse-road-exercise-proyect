@@ -34,6 +34,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
         this.raceStatus = raceStatus;
         this.SameStart = SameStart;
         this.endRace = endRace;
+        skill = new HorseSkill();
     }
 
     public int getRecorrido() {
@@ -49,8 +50,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
     }
 
     @Override
-    public void startRace(JLabel horseShower) {
-        this.horseShower = horseShower;
+    public void startRace() {
         try {
 
             SameStart.await();
@@ -58,10 +58,13 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
 
                 int advance = ThreadLocalRandom.current().nextInt(1, 8);
                 recorrido = Math.min(recorrido + advance, raceStatus.META);
-
+                
+                skill.setRecorrido(recorrido);
                 skill.setName(horseName);
-                horseShower.setText("");
-                horseShower.setText(skill.moveHorse());
+                String horseText = skill.moveHorse();
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    horseShower.setText("<html><pre>" + horseText + "</pre></html>");
+                });
                 Thread.sleep(150);
                 
                 if (recorrido == raceStatus.META){
@@ -76,7 +79,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
             }
 
         } catch (InterruptedException e) {
-
+            System.out.println(e.getMessage());
         } finally {
             endRace.countDown();
         }
@@ -85,7 +88,7 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
 
     @Override
     public void run() {
-        startRace(horseShower);
+        startRace();
     }
 
 }
