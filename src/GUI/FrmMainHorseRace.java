@@ -7,6 +7,7 @@ package GUI;
 import Exception.NotValidNameSeted;
 import Logica.Horse;
 import Logica.HorseRace;
+import Logica.HorseSkill;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -23,7 +24,9 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     private HorseRace race;
     private Random r = new Random();
     private final String names[] = {"Juan", "Pedro", "Daniel vibe Coder", "Tiro al Blanco", "Morph"};
-
+    
+    
+    
     /**
      * Creates new form FrmMainHorseRace
      */
@@ -199,7 +202,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
         getClientHorseName();
 
-        //race = new HorseRace();
+        race = new HorseRace(myHorse, iaHorseOne, iaHorseTwo);
 
     }
 
@@ -222,20 +225,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     }
 
-//    private String[] generateHorseName() {
-//
-//        int i = r.nextInt(0, 5);
-//        int h = r.nextInt(0, 5);
-//        if (i != h) {
-//            String horseNames[] = new String[2];
-//            horseNames[0] = names[i];
-//            horseNames[1] = names[h];
-//            return horseNames;
-//        }
-//
-//        return generateHorseName();
-//
-//    }
+//generate random names for contrincant horses 
 
     private String[] generateHorseNames() {
         String horseNames[] = new String[2];

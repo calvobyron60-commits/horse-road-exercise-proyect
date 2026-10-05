@@ -25,6 +25,31 @@ public class RandomStuff {
                 System.out.println("Sumatoria #" + (i + 1) + " = " + sumatorias[i]);
             }
         }
+        String n = "Miguel";
+        System.out.println("""
+                           
+                           
+                           """);
+        String horse = """
+                         .``
+               ._.-.___.' (`\\
+              //(        ( `'
+             '/ )\\ ).__. ) 
+             ' <' `\\ ._/'\\
+                `   \\     \\
+        """;
+
+        String horse2 = """
+                         .``
+               ._.-.___.' (`\\
+              //(        ( `'
+             '/ )\\ ).__. ) 
+             ' <' `\\ ._/'\\
+                `   \\     \\
+        """ + n;
+
+        System.out.println(horse
+                + n);
 
     }
 

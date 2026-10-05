@@ -40,11 +40,18 @@ public class HorseRace extends Thread implements RunnerHorse {
              '/ )\\ ).__. ) 
              ' <' `\\ ._/'\\
                 `   \\     \\
-        """ + localHorse.getHorseName();
+        """;
 
     public HorseRace() {
         
     }
+
+    public HorseRace(Horse localHorse, Horse rivalHorse, Horse thirdHorse) {
+        this.localHorse = localHorse;
+        this.rivalHorse = rivalHorse;
+        this.thirdHorse = thirdHorse;
+    }
+    
 
     @Override
     public void readSpeed() {
