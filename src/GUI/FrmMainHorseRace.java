@@ -4,9 +4,11 @@
  */
 package GUI;
 
+import Exception.NotValidNameSeted;
 import Logica.Horse;
 import Logica.HorseRace;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     private Horse iaHorseTwo;
     private Horse myHorse;
     private HorseRace race;
+    private Random r = new Random();
     private final String names[] = {"Juan", "Pedro", "Daniel vibe Coder", "Tiro al Blanco", "Morph"};
 
     /**
@@ -182,35 +185,70 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     private void bntStartRaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartRaceActionPerformed
         // TODO add your handling code here:
         declare();
-        System.out.println("We are here : " + iaHorseOne.getHorseName() +" and " + iaHorseTwo.getHorseName());
-        
-        
+        System.out.println("We are here : " + iaHorseOne.getHorseName() + " and " + iaHorseTwo.getHorseName());
+
 
     }//GEN-LAST:event_bntStartRaceActionPerformed
 
-    private void declare(){
-        String hnames[] = generateHorseName();
+    private void declare() {
+        String hnames[] = generateHorseNames();
         iaHorseOne = new Horse();
         iaHorseTwo = new Horse();
         iaHorseOne.setHorseName(hnames[0]);
         iaHorseTwo.setHorseName(hnames[1]);
-        race = new HorseRace();
-        
-    }
-    
-    private String[] generateHorseName() {
 
-        Random r = new Random();
-        int i = r.nextInt(0, 4);
-        int h = r.nextInt(0, 4);
-        if (i != h) {
-            String horseNames[] = new String[2];
-            horseNames[0] = names[i];
-            horseNames[1] = names[h];
+        getClientHorseName();
+
+        //race = new HorseRace();
+
+    }
+
+    private void getClientHorseName() {
+
+        try {
+            if (!(txtHorseName.getText().equals("Set yer horse name here")
+                    || txtHorseName.getText().isBlank())) {
+                throw new NotValidNameSeted("Debe ingresar un nombre");
+            }
+            myHorse = new Horse();
+            myHorse.setHorseName(txtHorseName.getText().trim());
+        } catch (NotValidNameSeted e) {
+            JOptionPane.showConfirmDialog(this,
+                    "Error:" + e.getMessage(),
+                    "Atencion",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+    }
+
+//    private String[] generateHorseName() {
+//
+//        int i = r.nextInt(0, 5);
+//        int h = r.nextInt(0, 5);
+//        if (i != h) {
+//            String horseNames[] = new String[2];
+//            horseNames[0] = names[i];
+//            horseNames[1] = names[h];
+//            return horseNames;
+//        }
+//
+//        return generateHorseName();
+//
+//    }
+
+    private String[] generateHorseNames() {
+        String horseNames[] = new String[2];
+        for (int i = 0; i < 2; i++) {
+            int random = r.nextInt(0, 5);
+            horseNames[i] = names[random];
+        }
+        
+        if (horseNames[0] != horseNames[1]){
             return horseNames;
         }
         
-        return generateHorseName();
+        return generateHorseNames();
 
     }
 

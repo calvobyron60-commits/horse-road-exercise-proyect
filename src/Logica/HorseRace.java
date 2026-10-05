@@ -50,15 +50,12 @@ public class HorseRace extends Thread implements RunnerHorse {
     public void readSpeed() {
 
         //speed = ran.nextInt(1, 8);
-        
-        speeds[0] = ran.nextInt(1, 8);
-        speeds[1] = ran.nextInt(1, 8);
-        speeds[2] = ran.nextInt(1, 8);
-        
-        recorridos[0] += speeds[0];
-        recorridos[1] += speeds[1];
-        recorridos[2] += speeds[2];
-        
+
+        for (int i = 0; i < 3; i++) {
+            speeds[i] = ran.nextInt(1, 8);
+            recorridos[i] += speeds[i];
+        }
+             
         //recorrido += speed;
     }
 
