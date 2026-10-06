@@ -19,7 +19,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMainHorseRace.class.getName());
     private Random r = new Random();
-    private final String names[] = {"Juan", "Pedro", "Daniel vibe Coder", "Tiro al Blanco", "Morph"};
+    private final String names[] = {"Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"};
     private RaceStatus raceStatus;
     private CountDownLatch sameStart;
     private CountDownLatch latch;
@@ -185,9 +185,9 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorseNameMouseClicked
 
     private void bntStartRaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartRaceActionPerformed
-        // TODO add your handling code here:
+        
         Race();
-        System.out.println("successfully");
+        //System.out.println("successfully");
 
     }//GEN-LAST:event_bntStartRaceActionPerformed
 

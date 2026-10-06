@@ -24,6 +24,9 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
     private final CountDownLatch endRace;
     private Horse skill;
     private JLabel horseShower;
+    
+    private long startTime;
+    private double finishedTime;
 
     public RuningHorse(String horseName,
             RaceStatus raceStatus,
@@ -48,11 +51,16 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
         this.horseShower = horseShower;
     }
 
+    public double getFinishedTime() {
+        return finishedTime;
+    }
+
     @Override
     public void startRace() {
         try {
 
             SameStart.await();
+            this.startTime = System.currentTimeMillis();
             while (recorrido < raceStatus.META) {
 
                 int advance = ThreadLocalRandom.current().nextInt(1, 8);
@@ -67,6 +75,8 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
                 Thread.sleep(150);
                 
                 if (recorrido == raceStatus.META){
+                    long endTime = System.currentTimeMillis();
+                    this.finishedTime = (startTime - endTime)/1000;
                     if (raceStatus.winScreamer()){
                         System.out.println("GG's");
                     }else{
