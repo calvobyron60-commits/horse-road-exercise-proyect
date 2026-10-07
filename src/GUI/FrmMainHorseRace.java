@@ -174,10 +174,11 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private void bntStartRaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartRaceActionPerformed
 
-        Race();
+        if (getClientHorseName()) {
+            Race();
 
-        //Evaluates Draws if is a Draws show it and kill the proccess
-        //Evaluates winner
+            //Evaluates Draws if is a Draws show it and kill the proccess
+            //Evaluates winner
             /**
              * lamda function evaluates winner after waitting horses that finish
              * the race
@@ -194,7 +195,10 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     System.out.println("Error:" + e.getMessage());
                 }
             }).start();
-        
+
+        }
+
+
     }//GEN-LAST:event_bntStartRaceActionPerformed
 
     private void mnbHorseOneNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbHorseOneNameActionPerformed
@@ -218,47 +222,43 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private void Race() {
         declare();
-        //getClientHorseName();
 
-        if (getClientHorseName()) {
+        if (!manualnameOneSetStatus && !manualnameTwoSetStatus) {
+            this.names = new ArrayList<>(List.of("Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"));
+            names = generateHorseNames();
+        } else if (manualnameOneSetStatus && manualnameTwoSetStatus) {
 
-            if (!manualnameOneSetStatus && !manualnameTwoSetStatus) {
-                //n[] = {"Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"};
-                this.names = new ArrayList<>(List.of("Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"));
-                names = generateHorseNames();
-            } else if (manualnameOneSetStatus && manualnameTwoSetStatus) {
-                //String names[] = {manualHorseOneName, manualHorseTwoName};
-                this.names = new ArrayList<>(List.of(manualHorseOneName, manualHorseTwoName));
-            } else if (manualnameOneSetStatus || manualnameTwoSetStatus) {
-                JOptionPane.showMessageDialog(this,
-                        "Debes ingresar ambos nombres",
-                        "Agregar Nombres",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            runner = new RuningHorse[raceStatus.PLAYERS_QUANT];
-            //labelInsert();
-            for (int i = 0; i < RaceStatus.PLAYERS_QUANT; i++) {
-                if (i == 0) {
-                    runner[i] = new RuningHorse(txtHorseName.getText().trim(),
-                            raceStatus,
-                            sameStart,
-                            latch
-                    );
-                    labelInsert(i);
-                    runner[i].start();
-                    continue;
-                }
-                runner[i] = new RuningHorse(names.get(i - 1),
+            this.names = new ArrayList<>(List.of(manualHorseOneName, manualHorseTwoName));
+        } else if (manualnameOneSetStatus || manualnameTwoSetStatus) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar ambos nombres",
+                    "Agregar Nombres",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        runner = new RuningHorse[raceStatus.PLAYERS_QUANT];
+        //labelInsert();
+        for (int i = 0; i < RaceStatus.PLAYERS_QUANT; i++) {
+            if (i == 0) {
+                runner[i] = new RuningHorse(txtHorseName.getText().trim(),
                         raceStatus,
                         sameStart,
                         latch
                 );
                 labelInsert(i);
                 runner[i].start();
+                continue;
             }
-
-            sameStart.countDown();
+            runner[i] = new RuningHorse(names.get(i - 1),
+                    raceStatus,
+                    sameStart,
+                    latch
+            );
+            labelInsert(i);
+            runner[i].start();
         }
+
+        sameStart.countDown();
 
     }
 
@@ -324,8 +324,8 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     "Draw",
                     JOptionPane.DEFAULT_OPTION);
             drawStatus = true;
-        }else if (t2 == t1 && t2 == t0){
-                        JOptionPane.showMessageDialog(this,
+        } else if (t2 == t1 && t2 == t0) {
+            JOptionPane.showMessageDialog(this,
                     "Empate \n"
                     + n1 + ", " + n2 + " y " + n0
                     + "times \n"
@@ -338,24 +338,6 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
         }
 
     }
-
-//    private boolean isDraw() {
-//        new Thread(() -> {
-//
-//            try {
-//                latch.await();
-//
-//                SwingUtilities.invokeLater(() -> {
-//                    drawGetter();
-//                });
-//            } catch (InterruptedException e) {
-//                System.out.println("Error:" + e.getMessage());
-//            }
-//        }).start();
-//
-//        return drawStatus;
-//
-//    }
 
     private void winnerGetter() {
 
@@ -392,7 +374,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     + "\n Horse #3 time: " + " (" + runner[1].getHORSE_NAME() + ") "
                     + runner[1].getFinishedTime(),
                     "Race Finished", JOptionPane.DEFAULT_OPTION);
-        }else{
+        } else {
             drawGetter();
         }
 
@@ -438,25 +420,15 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+            com.formdev.flatlaf.FlatDarkLaf.setup();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmMainHorseRace().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmMainHorseRace().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
