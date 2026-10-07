@@ -76,11 +76,11 @@ public class RuningHorse extends Thread implements RacerHorseImpl {
                 
                 if (recorrido == raceStatus.META){
                     long endTime = System.currentTimeMillis();
-                    this.finishedTime = (startTime - endTime)/1000;
+                    this.finishedTime = (endTime - startTime)/1000.0;
                     if (raceStatus.winScreamer()){
-                        System.out.println("GG's");
+                        System.out.println("Done");
                     }else{
-                        System.out.println("you lose");
+                        System.out.println("You've been passed");
                     }
                 }
                 

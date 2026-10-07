@@ -10,6 +10,10 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JOptionPane;
 import Logica.RuningHorse;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,11 +23,17 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMainHorseRace.class.getName());
     private Random r = new Random();
-    private final String names[] = {"Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"};
+    //private final String names[]  = {"Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"};
+    private ArrayList<String> names;
     private RaceStatus raceStatus;
     private CountDownLatch sameStart;
     private CountDownLatch latch;
     private RuningHorse runner[];
+    private boolean manualnameOneSetStatus = false;
+    private boolean manualnameTwoSetStatus = false;
+    private String manualHorseOneName;
+    private String manualHorseTwoName;
+    private boolean drawStatus = false;
 
     /**
      * Creates new form FrmMainHorseRace
@@ -43,18 +53,26 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         lblYerHorse = new javax.swing.JLabel();
         lblHorseTwo = new javax.swing.JLabel();
         lblThirdHorse = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblTimeHorseOne = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtHorseName = new javax.swing.JTextField();
         bntStartRace = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mnbHorseOneName = new javax.swing.JMenuItem();
+        mnbHorseTwoName = new javax.swing.JMenuItem();
+
+        jMenu2.setText("File");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,46 +82,6 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
         lblThirdHorse.setText("Seccond Rival");
 
-        jLabel1.setFont(new java.awt.Font("CaskaydiaCove NFM", 0, 18)); // NOI18N
-        jLabel1.setText("Times : ");
-
-        lblTimeHorseOne.setText("Horse One");
-
-        jLabel2.setText("Yer Horse");
-
-        jLabel3.setText("Third Horse");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addComponent(lblTimeHorseOne)
-                        .addGap(316, 316, 316)
-                        .addComponent(jLabel2)
-                        .addGap(202, 202, 202)
-                        .addComponent(jLabel3)))
-                .addContainerGap(256, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblTimeHorseOne)
-                    .addComponent(jLabel3))
-                .addGap(29, 29, 29))
-        );
-
         jLabel4.setFont(new java.awt.Font("CaskaydiaCove NFM", 0, 14)); // NOI18N
         jLabel4.setText("Race Camp");
 
@@ -111,7 +89,6 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -120,10 +97,10 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblYerHorse)
                             .addComponent(lblThirdHorse)
-                            .addComponent(lblHorseTwo))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblHorseTwo)
+                            .addComponent(lblYerHorse))))
+                .addContainerGap(684, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,13 +109,11 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(68, 68, 68)
                 .addComponent(lblHorseTwo)
-                .addGap(135, 135, 135)
+                .addGap(209, 209, 209)
                 .addComponent(lblYerHorse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                 .addComponent(lblThirdHorse)
-                .addGap(208, 208, 208)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(173, 173, 173))
         );
 
         txtHorseName.setText("Set yer horse name here");
@@ -150,6 +125,20 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
         bntStartRace.setText("Start Race");
         bntStartRace.addActionListener(this::bntStartRaceActionPerformed);
+
+        jMenu1.setText("Set Names");
+
+        mnbHorseOneName.setText("Horse One Name");
+        mnbHorseOneName.addActionListener(this::mnbHorseOneNameActionPerformed);
+        jMenu1.add(mnbHorseOneName);
+
+        mnbHorseTwoName.setText("Horse Two Name");
+        mnbHorseTwoName.addActionListener(this::mnbHorseTwoNameActionPerformed);
+        jMenu1.add(mnbHorseTwoName);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,11 +174,47 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorseNameMouseClicked
 
     private void bntStartRaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartRaceActionPerformed
-        
+
         Race();
-        //System.out.println("successfully");
+
+        //Evaluates Draws if is a Draws show it and kill the proccess
+        if (isDraw()) {
+            return;
+        }
+
+        //Evaluates winner
+        /**
+         * lamda function evaluates winner after waitting horses that finish the
+         * race
+         */
+        new Thread(() -> {
+
+            try {
+                latch.await();
+
+                SwingUtilities.invokeLater(() -> {
+                    winnerGetter();
+                });
+            } catch (InterruptedException e) {
+                System.out.println("Error:" + e.getMessage());
+            }
+        }).start();
+
+        //winnerGetter();
 
     }//GEN-LAST:event_bntStartRaceActionPerformed
+
+    private void mnbHorseOneNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbHorseOneNameActionPerformed
+        //System.out.println("Hello");
+        manualnameOneSetStatus = true;
+        manualHorseOneName = JOptionPane.showInputDialog("Nombre del caballo #1");
+        System.out.println("Hello " + manualHorseOneName);
+    }//GEN-LAST:event_mnbHorseOneNameActionPerformed
+
+    private void mnbHorseTwoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbHorseTwoNameActionPerformed
+        manualnameTwoSetStatus = true;
+        manualHorseTwoName = JOptionPane.showInputDialog("Nombre del caballo #2");
+    }//GEN-LAST:event_mnbHorseTwoNameActionPerformed
 
     private void declare() {
         raceStatus = new RaceStatus();
@@ -203,7 +228,20 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
         //getClientHorseName();
 
         if (getClientHorseName()) {
-            String names[] = generateHorseNames();
+
+            if (!manualnameOneSetStatus && !manualnameTwoSetStatus) {
+                //n[] = {"Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"};
+                this.names = new ArrayList<>(List.of("Juan", "Jonathan", "Daniel", "Tiro al Blanco", "Morph"));
+                names = generateHorseNames();
+            } else if (manualnameOneSetStatus && manualnameTwoSetStatus) {
+                //String names[] = {manualHorseOneName, manualHorseTwoName};
+                this.names = new ArrayList<>(List.of(manualHorseOneName, manualHorseTwoName));
+            } else if (manualnameOneSetStatus || manualnameTwoSetStatus) {
+                JOptionPane.showMessageDialog(this,
+                        "Debes ingresar ambos nombres",
+                        "Agregar Nombres",
+                        JOptionPane.ERROR_MESSAGE);
+            }
             runner = new RuningHorse[raceStatus.PLAYERS_QUANT];
             //labelInsert();
             for (int i = 0; i < RaceStatus.PLAYERS_QUANT; i++) {
@@ -217,7 +255,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     runner[i].start();
                     continue;
                 }
-                runner[i] = new RuningHorse(names[i - 1],
+                runner[i] = new RuningHorse(names.get(i - 1),
                         raceStatus,
                         sameStart,
                         latch
@@ -225,7 +263,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                 labelInsert(i);
                 runner[i].start();
             }
-            
+
             sameStart.countDown();
         }
 
@@ -244,6 +282,111 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                 runner[i].setHorseShower(lblThirdHorse);
             }
 
+        }
+
+    }
+
+    private void drawGetter() {
+
+        //names
+        String n0 = runner[0].getName();
+        String n1 = runner[1].getName();
+        String n2 = runner[2].getName();
+
+        //times
+        double t0 = runner[0].getFinishedTime();
+        double t1 = runner[1].getFinishedTime();
+        double t2 = runner[2].getFinishedTime();
+
+        if (t0 == t1) {
+            JOptionPane.showMessageDialog(this,
+                    "Empate \n"
+                    + n0 + " y " + n1
+                    + "times \n"
+                    + n0 + " : " + t0 + ", "
+                    + n1 + " : " + t1 + ", "
+                    + n2 + " : " + t2 + ", ",
+                    "Draw",
+                    JOptionPane.DEFAULT_OPTION);
+            drawStatus = true;
+        } else if (t2 == t0) {
+            JOptionPane.showMessageDialog(this,
+                    "Empate \n"
+                    + n0 + " y " + n2
+                    + "times \n"
+                    + n0 + " : " + t0 + ", "
+                    + n1 + " : " + t1 + ", "
+                    + n2 + " : " + t2 + ", ",
+                    "Draw",
+                    JOptionPane.DEFAULT_OPTION);
+            drawStatus = true;
+        } else if (t2 == t1) {
+            JOptionPane.showMessageDialog(this,
+                    "Empate \n"
+                    + n1 + " y " + n2
+                    + "times \n"
+                    + n0 + " : " + t0 + ", "
+                    + n1 + " : " + t1 + ", "
+                    + n2 + " : " + t2 + ", ",
+                    "Draw",
+                    JOptionPane.DEFAULT_OPTION);
+            drawStatus = true;
+        }
+
+    }
+
+    private boolean isDraw() {
+        new Thread(() -> {
+
+            try {
+                latch.await();
+
+                SwingUtilities.invokeLater(() -> {
+                    drawGetter();
+                });
+            } catch (InterruptedException e) {
+                System.out.println("Error:" + e.getMessage());
+            }
+        }).start();
+        
+        return drawStatus;
+        
+    }
+
+    private void winnerGetter() {
+
+        if (runner[0].getFinishedTime() < runner[1].getFinishedTime()
+                && runner[0].getFinishedTime() < runner[2].getFinishedTime()) {
+            JOptionPane.showMessageDialog(this,
+                    "Winner: " + runner[0].getName()
+                    + "\n with time: "
+                    + runner[0].getFinishedTime()
+                    + "\n Horse #2 time: " + " (" + runner[1].getName() + ")"
+                    + runner[1].getFinishedTime()
+                    + "\n Horse #3 time: " + " (" + runner[1].getName() + ")"
+                    + runner[2].getFinishedTime(),
+                    "Race Finished", JOptionPane.DEFAULT_OPTION);
+        } else if (runner[1].getFinishedTime() < runner[0].getFinishedTime()
+                && runner[1].getFinishedTime() < runner[2].getFinishedTime()) {
+            JOptionPane.showMessageDialog(this,
+                    "Winner: " + runner[1].getName()
+                    + "\n with time: "
+                    + runner[1].getFinishedTime()
+                    + "\n Yer Horse time: " + " (" + runner[0].getName() + ")"
+                    + runner[0].getFinishedTime()
+                    + "\n Horse #3 time: " + " (" + runner[2].getName() + ")"
+                    + runner[2].getFinishedTime(),
+                    "Race Finished", JOptionPane.DEFAULT_OPTION);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Winner: " + runner[2].getName()
+                    + "\n with time: "
+                    + runner[2].getFinishedTime()
+                    + "\n Yer Horse time: " + " (" + runner[0].getName() + ")"
+                    + runner[0].getFinishedTime()
+                    + "\n Horse #3 time: " + " (" + runner[1].getName() + ")"
+                    + runner[1].getFinishedTime(),
+                    "Race Finished", JOptionPane.DEFAULT_OPTION);
         }
 
     }
@@ -269,14 +412,14 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     }
 
 //generate random names for contrincant horses 
-    private String[] generateHorseNames() {
-        String horseNames[] = new String[2];
+    private ArrayList<String> generateHorseNames() {
+        ArrayList<String> horseNames = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            int random = r.nextInt(0, 5);
-            horseNames[i] = names[random];
+            int random = r.nextInt(0, 6);
+            horseNames.add(i, names.get(random));
         }
 
-        if (horseNames[0] != horseNames[1]) {
+        if (horseNames.get(0) != horseNames.get(1)) {
             return horseNames;
         }
 
@@ -311,16 +454,18 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntStartRace;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblHorseTwo;
     private javax.swing.JLabel lblThirdHorse;
-    private javax.swing.JLabel lblTimeHorseOne;
     private javax.swing.JLabel lblYerHorse;
+    private javax.swing.JMenuItem mnbHorseOneName;
+    private javax.swing.JMenuItem mnbHorseTwoName;
     private javax.swing.JTextField txtHorseName;
     // End of variables declaration//GEN-END:variables
 }
