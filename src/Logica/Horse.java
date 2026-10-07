@@ -37,7 +37,7 @@ public class Horse {
              '/ )\\ ).__. ) 
              ' <' `\\ ._/'\\
                 `   \\     \\
-        """ + name;
+        """ + "        " +name;
         
 
         String espacios = " ".repeat(recorrido);

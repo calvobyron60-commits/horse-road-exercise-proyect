@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JOptionPane;
 import Logica.RuningHorse;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
@@ -92,28 +91,28 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblThirdHorse)
                             .addComponent(lblHorseTwo)
-                            .addComponent(lblYerHorse))))
-                .addContainerGap(684, Short.MAX_VALUE))
+                            .addComponent(lblYerHorse)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(523, 523, 523)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel4)
-                .addGap(68, 68, 68)
+                .addGap(53, 53, 53)
                 .addComponent(lblHorseTwo)
-                .addGap(209, 209, 209)
+                .addGap(56, 56, 56)
                 .addComponent(lblYerHorse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addComponent(lblThirdHorse)
-                .addGap(173, 173, 173))
+                .addContainerGap(319, Short.MAX_VALUE))
         );
 
         txtHorseName.setText("Set yer horse name here");
@@ -146,7 +145,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(355, Short.MAX_VALUE)
                 .addComponent(txtHorseName, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(181, 181, 181)
                 .addComponent(bntStartRace, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,30 +177,24 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
         Race();
 
         //Evaluates Draws if is a Draws show it and kill the proccess
-        if (isDraw()) {
-            return;
-        }
-
         //Evaluates winner
-        /**
-         * lamda function evaluates winner after waitting horses that finish the
-         * race
-         */
-        new Thread(() -> {
+            /**
+             * lamda function evaluates winner after waitting horses that finish
+             * the race
+             */
+            new Thread(() -> {
 
-            try {
-                latch.await();
+                try {
+                    latch.await();
 
-                SwingUtilities.invokeLater(() -> {
-                    winnerGetter();
-                });
-            } catch (InterruptedException e) {
-                System.out.println("Error:" + e.getMessage());
-            }
-        }).start();
-
-        //winnerGetter();
-
+                    SwingUtilities.invokeLater(() -> {
+                        winnerGetter();
+                    });
+                } catch (InterruptedException e) {
+                    System.out.println("Error:" + e.getMessage());
+                }
+            }).start();
+        
     }//GEN-LAST:event_bntStartRaceActionPerformed
 
     private void mnbHorseOneNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbHorseOneNameActionPerformed
@@ -289,9 +282,9 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     private void drawGetter() {
 
         //names
-        String n0 = runner[0].getName();
-        String n1 = runner[1].getName();
-        String n2 = runner[2].getName();
+        String n0 = runner[0].getHORSE_NAME();
+        String n1 = runner[1].getHORSE_NAME();
+        String n2 = runner[2].getHORSE_NAME();
 
         //times
         double t0 = runner[0].getFinishedTime();
@@ -331,62 +324,76 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
                     "Draw",
                     JOptionPane.DEFAULT_OPTION);
             drawStatus = true;
+        }else if (t2 == t1 && t2 == t0){
+                        JOptionPane.showMessageDialog(this,
+                    "Empate \n"
+                    + n1 + ", " + n2 + " y " + n0
+                    + "times \n"
+                    + n0 + " : " + t0 + ", "
+                    + n1 + " : " + t1 + ", "
+                    + n2 + " : " + t2 + ", ",
+                    "Draw",
+                    JOptionPane.DEFAULT_OPTION);
+            drawStatus = true;
         }
 
     }
 
-    private boolean isDraw() {
-        new Thread(() -> {
-
-            try {
-                latch.await();
-
-                SwingUtilities.invokeLater(() -> {
-                    drawGetter();
-                });
-            } catch (InterruptedException e) {
-                System.out.println("Error:" + e.getMessage());
-            }
-        }).start();
-        
-        return drawStatus;
-        
-    }
+//    private boolean isDraw() {
+//        new Thread(() -> {
+//
+//            try {
+//                latch.await();
+//
+//                SwingUtilities.invokeLater(() -> {
+//                    drawGetter();
+//                });
+//            } catch (InterruptedException e) {
+//                System.out.println("Error:" + e.getMessage());
+//            }
+//        }).start();
+//
+//        return drawStatus;
+//
+//    }
 
     private void winnerGetter() {
 
         if (runner[0].getFinishedTime() < runner[1].getFinishedTime()
                 && runner[0].getFinishedTime() < runner[2].getFinishedTime()) {
             JOptionPane.showMessageDialog(this,
-                    "Winner: " + runner[0].getName()
+                    "Winner: " + runner[0].getHORSE_NAME()
                     + "\n with time: "
                     + runner[0].getFinishedTime()
-                    + "\n Horse #2 time: " + " (" + runner[1].getName() + ")"
+                    + "\n Horse #2 time: " + " (" + runner[1].getHORSE_NAME() + ") "
                     + runner[1].getFinishedTime()
-                    + "\n Horse #3 time: " + " (" + runner[1].getName() + ")"
+                    + "\n Horse #3 time: " + " (" + runner[1].getHORSE_NAME() + ") "
                     + runner[2].getFinishedTime(),
                     "Race Finished", JOptionPane.DEFAULT_OPTION);
         } else if (runner[1].getFinishedTime() < runner[0].getFinishedTime()
                 && runner[1].getFinishedTime() < runner[2].getFinishedTime()) {
             JOptionPane.showMessageDialog(this,
-                    "Winner: " + runner[1].getName()
+                    "Winner: " + runner[1].getHORSE_NAME()
                     + "\n with time: "
                     + runner[1].getFinishedTime()
-                    + "\n Yer Horse time: " + " (" + runner[0].getName() + ")"
+                    + "\n Yer Horse time: " + " (" + runner[0].getHORSE_NAME() + ") "
                     + runner[0].getFinishedTime()
-                    + "\n Horse #3 time: " + " (" + runner[2].getName() + ")"
+                    + "\n Horse #3 time: " + " (" + runner[2].getHORSE_NAME() + ") "
                     + runner[2].getFinishedTime(),
                     "Race Finished", JOptionPane.DEFAULT_OPTION);
-        } else {
+        } else if (runner[2].getFinishedTime() < runner[0].getFinishedTime()
+                && runner[2].getFinishedTime() < runner[1].getFinishedTime()) {
             JOptionPane.showMessageDialog(this,
-                    "Winner: " + runner[2].getName()
+                    "Winner: " + runner[2].getHORSE_NAME()
                     + "\n with time: "
                     + runner[2].getFinishedTime()
-                    + "\n Yer Horse time: " + " (" + runner[0].getName() + ")"
+                    + "\n Yer Horse time: " + " (" + runner[0].getHORSE_NAME() + ") "
                     + runner[0].getFinishedTime()
-                    + "\n Horse #3 time: " + " (" + runner[1].getName() + ")"
+                    + "\n Horse #3 time: " + " (" + runner[1].getHORSE_NAME() + ") "
                     + runner[1].getFinishedTime(),
                     "Race Finished", JOptionPane.DEFAULT_OPTION);
+        }else{
+            drawGetter();
         }
 
     }
@@ -415,7 +422,7 @@ public class FrmMainHorseRace extends javax.swing.JFrame {
     private ArrayList<String> generateHorseNames() {
         ArrayList<String> horseNames = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            int random = r.nextInt(0, 6);
+            int random = r.nextInt(names.size());
             horseNames.add(i, names.get(random));
         }
 
