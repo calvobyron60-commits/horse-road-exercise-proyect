@@ -10,21 +10,57 @@ package Logica;
  */
 public class Horse {
 
-    private String horseName;
-    private int recorrido;
-    private String horse;
 
-    public Horse(int recorrido, String horse) {
+    private int recorrido = 0;
+    private String name = "";
+    
+
+//    public HorseSkill( int recorrido, String horse) {
+//        this.recorrido = recorrido;
+//        this.horse = horse;
+//    }
+    
+    public Horse(){
+        
+    }
+    /**
+     * Makes the spaces for create horses movement 
+     * 
+     */
+    
+    public String moveHorse() {
+        
+        String horse = """
+                         .``
+               ._.-.___.' (`\\
+              //(        ( `'
+             '/ )\\ ).__. ) 
+             ' <' `\\ ._/'\\
+                `   \\     \\
+        """ + "        " +name;
+        
+
+        String espacios = " ".repeat(recorrido);
+
+        String[] lineas = horse.split("\n");
+
+        String resultado = "";
+
+        for (String linea : lineas) {
+            resultado += espacios + linea + "\n";
+        }
+
+        return resultado;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRecorrido(int recorrido) {
         this.recorrido = recorrido;
-        this.horse = horse;
     }
-
-    public void setHorseName(String name) {
-        this.horseName = name;
-    }
-
-    public String getHorseName() {
-        return horseName;
-    }
+    
+    
 
 }
